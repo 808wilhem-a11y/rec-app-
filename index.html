@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>R.E.C — Réussir en Chine</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.0.0/tabler-icons.min.css">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --bg:#ffffff;--bg2:#f7f7f5;--bg3:#f0f0ec;
+  --text:#0e0e0e;--text2:#6b6b68;--text3:#a0a09d;
+  --border:rgba(0,0,0,0.1);--border2:rgba(0,0,0,0.18);
+  --gold:#c8a96e;--red:#C0272D;
+  --radius:8px;--radius-lg:12px;
+}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;background:var(--bg2);color:var(--text);min-height:100vh;display:flex;flex-direction:column;}
+.app{display:flex;height:100vh;overflow:hidden;}
+
+/* SIDEBAR */
+.sidebar{width:210px;flex-shrink:0;background:var(--bg);border-right:0.5px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;}
+.sidebar-logo{padding:1.25rem 1rem 1rem;border-bottom:0.5px solid var(--border);}
+.sidebar-brand{font-size:12px;font-weight:600;letter-spacing:0.14em;color:var(--gold);text-transform:uppercase;}
+.sidebar-sub{font-size:11px;color:var(--text3);margin-top:3px;}
+.nav-section{font-size:10px;font-weight:600;letter-spacing:0.08em;text-transform:uppercase;color:var(--text3);padding:12px 1rem 4px;}
+.nav-item{display:flex;align-items:center;gap:9px;padding:8px 1rem;font-size:13px;color:var(--text2);cursor:pointer;border-right:2px solid transparent;transition:all 0.1s;}
+.nav-item:hover{background:var(--bg2);color:var(--text);}
+.nav-item.active{background:var(--bg2);color:var(--text);font-weight:500;border-right-color:var(--gold);}
+.nav-item i{font-size:16px;flex-shrink:0;}
+.nav-badge{margin-left:auto;font-size:10px;font-weight:600;background:var(--bg3);color:var(--text2);padding:1px 6px;border-radius:100px;}
+.nav-badge.red{background:#FCEBEB;color:#A32D2D;}
+.sidebar-footer{margin-top:auto;padding:1rem;border-top:0.5px solid var(--border);}
+.sidebar-footer-name{font-size:12px;font-weight:500;color:var(--text);}
+.sidebar-footer-sub{font-size:11px;color:var(--text3);margin-top:1px;}
+
+/* MAIN */
+.main{flex:1;display:flex;flex-direction:column;min-width:0;overflow:hidden;}
+.topbar{display:flex;align-items:center;justify-content:space-between;padding:0 1.5rem;height:52px;border-bottom:0.5px solid var(--border);background:var(--bg);flex-shrink:0;}
+.topbar-title{font-size:15px;font-weight:500;}
+.topbar-actions{display:flex;gap:7px;align-items:center;}
+.content{flex:1;overflow-y:auto;padding:1.5rem;}
+
+/* BUTTONS */
+.btn{display:inline-flex;align-items:center;gap:6px;font-size:13px;padding:0 12px;height:32px;border-radius:var(--radius);border:0.5px solid var(--border2);background:var(--bg);color:var(--text);cursor:pointer;white-space:nowrap;font-family:inherit;}
+.btn:hover{background:var(--bg2);}
+.btn-primary{background:var(--text);color:var(--bg);border-color:transparent;}
+.btn-primary:hover{opacity:.88;background:var(--text);}
+.btn-gold{background:var(--gold);color:#0e0e0e;border-color:transparent;font-weight:500;}
+.btn-gold:hover{opacity:.88;background:var(--gold);}
+.btn-sm{height:28px;font-size:12px;padding:0 10px;}
+.btn-icon{background:none;border:none;cursor:pointer;color:var(--text2);padding:4px;border-radius:4px;font-size:15px;line-height:1;}
+.btn-icon:hover{color:var(--text);background:var(--bg2);}
+
+/* FORMS */
+.field{margin-bottom:10px;}
+.field label{display:block;font-size:12px;color:var(--text2);margin-bottom:3px;font-weight:500;}
+.field input,.field select,.field textarea{width:100%;font-size:13px;padding:0 10px;height:34px;border-radius:var(--radius);border:0.5px solid var(--border2);background:var(--bg);color:var(--text);font-family:inherit;}
+.field textarea{height:auto;padding:8px 10px;resize:vertical;}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--gold);}
+.form-2{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+.full{grid-column:1/-1;}
+
+/* BADGES */
+.badge{display:inline-block;font-size:11px;font-weight:500;padding:2px 8px;border-radius:100px;}
+.bq{background:#EAF3DE;color:#3B6D11;}
+.be{background:#FAEEDA;color:#854F0B;}
+.br{background:#FCEBEB;color:#A32D2D;}
+.bp{background:#E6F1FB;color:#185FA5;}
+.bn{background:#F1EFE8;color:#5F5E5A;}
+
+/* TABLES */
+.table-wrap{overflow-x:auto;}
+table.t{width:100%;border-collapse:collapse;font-size:13px;}
+table.t th{text-align:left;font-weight:500;font-size:11px;letter-spacing:.05em;text-transform:uppercase;color:var(--text2);padding:0 10px 8px;border-bottom:0.5px solid var(--border);white-space:nowrap;}
+table.t td{padding:9px 10px;border-bottom:0.5px solid var(--border);color:var(--text);vertical-align:middle;}
+table.t tr:hover td{background:var(--bg2);}
+.td-actions{display:flex;gap:4px;}
+
+/* STATS */
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:1.5rem;}
+.stat-card{background:var(--bg);border-radius:var(--radius);border:0.5px solid var(--border);padding:12px 16px;}
+.stat-label{font-size:11px;color:var(--text2);margin-bottom:4px;}
+.stat-val{font-size:24px;font-weight:500;}
+
+/* SECTION LABEL */
+.slabel{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text2);margin-bottom:8px;padding-bottom:6px;border-bottom:0.5px solid var(--border);}
+
+/* SCORE BAR */
+.sbar{display:flex;align-items:center;gap:6px;}
+.sbar-track{flex:1;height:4px;background:var(--border);border-radius:2px;overflow:hidden;}
+.sbar-fill{height:100%;border-radius:2px;}
+
+/* PIPELINE */
+.pipeline{display:grid;grid-template-columns:repeat(6,1fr);gap:6px;}
+.pcol{}
+.phead{font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text2);text-align:center;padding:6px 4px 8px;border-bottom:3px solid var(--border);margin-bottom:8px;}
+.phead.s0{border-color:#888780}.phead.s1{border-color:#378ADD}.phead.s2{border-color:#EF9F27}.phead.s3{border-color:var(--gold)}.phead.s4{border-color:#5DCAA5}.phead.s5{border-color:#639922}
+.pcard{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius);padding:8px;margin-bottom:6px;cursor:pointer;font-size:11px;}
+.pcard:hover{border-color:var(--border2);background:var(--bg2);}
+.pcard-ref{font-weight:600;color:var(--text);margin-bottom:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pcard-cli{color:var(--text2);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:4px;}
+.pcard-foot{display:flex;justify-content:space-between;align-items:center;}
+.pempty{font-size:11px;color:var(--text3);text-align:center;padding:10px 4px;}
+.pcnt{font-size:10px;font-weight:400;color:var(--text3);}
+
+/* CALC */
+.calc-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;}
+.res-cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:1rem 0;}
+.res-card{background:var(--bg2);border-radius:var(--radius);padding:12px 14px;}
+.res-label{font-size:11px;color:var(--text2);margin-bottom:3px;}
+.res-val{font-size:18px;font-weight:500;}
+.bdown-row{display:flex;justify-content:space-between;font-size:12px;padding:5px 0;border-bottom:0.5px solid var(--border);color:var(--text2);}
+.bdown-row span:last-child{font-weight:500;color:var(--text);}
+.bdown-total{display:flex;justify-content:space-between;font-size:14px;font-weight:500;padding-top:8px;margin-top:4px;border-top:1px solid var(--border2);}
+.marge-row{display:flex;align-items:center;gap:10px;margin-top:8px;}
+.marge-row input[type=range]{flex:1;}
+.marge-row input[type=number]{width:54px;font-size:14px;font-weight:500;text-align:center;height:34px;border-radius:var(--radius);border:0.5px solid var(--border2);padding:0 6px;}
+.alert-box{padding:8px 12px;border-radius:var(--radius);font-size:12px;margin-top:10px;display:none;}
+.alert-warn{background:#FAEEDA;color:#854F0B;}
+.alert-danger{background:#FCEBEB;color:#A32D2D;}
+
+/* INVOICE */
+.inv-layout{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:1rem;}
+.lines-hd{display:grid;grid-template-columns:minmax(0,3fr) 60px 80px 70px 24px;gap:6px;font-size:10px;font-weight:600;text-transform:uppercase;letter-spacing:.04em;color:var(--text2);padding-bottom:6px;border-bottom:0.5px solid var(--border);margin-bottom:6px;}
+.line-row{display:grid;grid-template-columns:minmax(0,3fr) 60px 80px 70px 24px;gap:6px;align-items:center;margin-bottom:5px;}
+.line-row input{width:100%;font-size:12px;height:30px;border-radius:var(--radius);border:0.5px solid var(--border2);background:var(--bg);color:var(--text);padding:0 8px;font-family:inherit;}
+.line-tot{font-size:12px;font-weight:500;text-align:right;}
+.bdel{background:none;border:none;cursor:pointer;color:var(--text3);font-size:14px;padding:2px;border-radius:3px;}
+.bdel:hover{color:#A32D2D;}
+.add-line{font-size:12px;padding:4px 10px;height:28px;border-radius:var(--radius);border:0.5px dashed var(--border2);background:none;color:var(--text2);cursor:pointer;display:flex;align-items:center;gap:5px;margin-top:6px;font-family:inherit;}
+.add-line:hover{background:var(--bg2);color:var(--text);}
+.inv-tot-row{display:flex;justify-content:space-between;font-size:12px;padding:4px 0;color:var(--text2);}
+.inv-tot-row span:last-child{font-weight:500;color:var(--text);}
+.inv-grand{display:flex;justify-content:space-between;font-size:15px;font-weight:500;padding-top:8px;margin-top:6px;border-top:1px solid var(--border2);}
+
+/* HOME CARDS */
+.home-cards{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+.hcard{background:var(--bg);border:0.5px solid var(--border);border-radius:var(--radius-lg);padding:1.25rem;cursor:pointer;transition:border-color .15s,background .15s;}
+.hcard:hover{border-color:var(--border2);background:var(--bg2);}
+.hcard-icon{font-size:24px;color:var(--gold);margin-bottom:10px;}
+.hcard-title{font-size:14px;font-weight:500;margin-bottom:4px;}
+.hcard-desc{font-size:12px;color:var(--text2);line-height:1.5;}
+.hcard-count{margin-top:10px;font-size:12px;font-weight:600;color:var(--gold);}
+
+/* MODAL */
+.modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;align-items:center;justify-content:center;}
+.modal-overlay.open{display:flex;}
+.modal-box{background:var(--bg);border-radius:var(--radius-lg);border:0.5px solid var(--border2);padding:1.5rem;width:500px;max-width:95vw;max-height:90vh;overflow-y:auto;}
+.modal-title{font-size:15px;font-weight:500;margin-bottom:1.25rem;}
+.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:1.25rem;padding-top:1rem;border-top:0.5px solid var(--border);}
+
+/* TOOLBAR */
+.toolbar{display:flex;gap:8px;margin-bottom:1rem;flex-wrap:wrap;align-items:center;}
+.srch{flex:1;min-width:150px;position:relative;}
+.srch i{position:absolute;left:9px;top:50%;transform:translateY(-50%);font-size:15px;color:var(--text3);}
+.srch input{width:100%;padding-left:30px;font-size:13px;height:32px;border-radius:var(--radius);border:0.5px solid var(--border2);background:var(--bg);color:var(--text);font-family:inherit;}
+select.filt{font-size:13px;height:32px;border-radius:var(--radius);border:0.5px solid var(--border2);background:var(--bg);color:var(--text);padding:0 9px;font-family:inherit;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;background:var(--text);color:var(--bg);font-size:13px;padding:10px 16px;border-radius:var(--radius);z-index:200;opacity:0;transition:opacity .3s;pointer-events:none;}
+.toast.show{opacity:1;}
+
+/* SECTOR TABS */
+.sector-tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:1rem;}
+.stab{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:500;padding:4px 12px;border-radius:100px;border:0.5px solid var(--border2);background:var(--bg);color:var(--text2);cursor:pointer;}
+.stab .cnt{font-size:11px;padding:1px 5px;border-radius:100px;background:var(--bg2);color:var(--text2);}
+.stab.active{background:var(--text);color:var(--bg);border-color:transparent;}
+.stab.active .cnt{background:rgba(255,255,255,.2);color:var(--bg);}
+.sector-group-title{display:flex;align-items:center;gap:8px;padding:8px 0 6px;border-bottom:0.5px solid var(--border);margin:12px 0 6px;}
+.sector-group-title:first-child{margin-top:0;}
+.sgt-name{font-size:13px;font-weight:500;}
+.sgt-count{margin-left:auto;font-size:12px;color:var(--text3);}
+
+@media(max-width:700px){
+  .sidebar{width:52px;}
+  .sidebar-brand,.sidebar-sub,.nav-item span,.nav-section,.nav-badge,.sidebar-footer-name,.sidebar-footer-sub{display:none;}
+  .nav-item{justify-content:center;padding:10px;}
+  .stats-grid{grid-template-columns:1fr 1fr;}
+  .home-cards{grid-template-columns:1fr;}
+  .calc-layout,.inv-layout,.form-2{grid-template-columns:1fr;}
+  .pipeline{grid-template-columns:repeat(3,1fr);}
+}
+</style>
+</head>
+<body>
+<div class="app">
+  <div class="sidebar">
+    <div class="sidebar-logo">
+      <div class="sidebar-brand">R.E.C</div>
+      <div class="sidebar-sub">Réussir en Chine</div>
+    </div>
+    <div class="nav-section">Vue d'ensemble</div>
+    <div class="nav-item active" onclick="goTo('home')" id="nav-home"><i class="ti ti-layout-dashboard"></i><span>Tableau de bord</span></div>
+    <div class="nav-section">Sourcing</div>
+    <div class="nav-item" onclick="goTo('fournisseurs')" id="nav-fournisseurs"><i class="ti ti-building-factory-2"></i><span>Fournisseurs</span><span class="nav-badge" id="nb-sup">0</span></div>
+    <div class="nav-item" onclick="goTo('commandes')" id="nav-commandes"><i class="ti ti-truck"></i><span>Commandes</span><span class="nav-badge" id="nb-ord">0</span></div>
+    <div class="nav-section">Finance</div>
+    <div class="nav-item" onclick="goTo('calcul')" id="nav-calcul"><i class="ti ti-calculator"></i><span>Prix de revient</span></div>
+    <div class="nav-item" onclick="goTo('factures')" id="nav-factures"><i class="ti ti-file-invoice"></i><span>Factures</span><span class="nav-badge" id="nb-inv">0</span></div>
+    <div class="sidebar-footer">
+      <div class="sidebar-footer-name">Eric Ibrahim</div>
+      <div class="sidebar-footer-sub">Guangdong, Chine</div>
+    </div>
+  </div>
+  <div class="main">
+    <div class="topbar">
+      <div class="topbar-title" id="topbar-title">Tableau de bord</div>
+      <div class="topbar-actions" id="topbar-actions"></div>
+    </div>
+    <div class="content" id="content"></div>
+  </div>
+</div>
+<div class="toast" id="toast"></div>
+
+<!-- MODALS -->
+<div class="modal-overlay" id="sup-modal-overlay">
+  <div class="modal-box">
+    <div class="modal-title" id="sup-modal-title">Nouveau fournisseur</div>
+    <div class="form-2">
+      <div class="field full"><label>Nom *</label><input id="sm-nom" placeholder="Guangdong Tech Co. Ltd"></div>
+      <div class="field"><label>Ville</label><select id="sm-ville"><option>Shenzhen</option><option>Guangzhou</option><option>Dongguan</option><option>Foshan</option><option>Zhongshan</option><option>Huiyang</option><option>Chaozhou</option><option>Autre</option></select></div>
+      <div class="field"><label>Secteur</label><select id="sm-secteur"><option value="electronique">Électronique</option><option value="textile">Textile</option><option value="metal">Métal</option><option value="plastique">Plastique</option><option value="luminaire">Luminaires</option><option value="mobilier">Mobilier</option><option value="ceramique">Céramique</option><option value="alimentaire">Agroalimentaire</option><option value="autre">Autre</option></select></div>
+      <div class="field"><label>Type</label><select id="sm-type"><option>Usine</option><option>Trader</option></select></div>
+      <div class="field"><label>Statut</label><select id="sm-statut"><option>Prospect</option><option>En cours</option><option>Qualifié</option><option>Rejeté</option></select></div>
+      <div class="field"><label>Contact</label><input id="sm-contact" placeholder="Nom"></div>
+      <div class="field"><label>WeChat / WhatsApp</label><input id="sm-wechat" placeholder="ID ou numéro"></div>
+      <div class="field"><label>MOQ</label><input id="sm-moq" placeholder="500 pcs"></div>
+      <div class="field"><label>Score qualif. (/100)</label><input type="number" id="sm-score" min="0" max="100" value="0"></div>
+      <div class="field full"><label>Notes</label><textarea id="sm-notes" rows="3"></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('sup')">Annuler</button><button class="btn btn-primary" onclick="saveSup()">Enregistrer</button></div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="ord-modal-overlay">
+  <div class="modal-box">
+    <div class="modal-title" id="ord-modal-title">Nouvelle commande</div>
+    <div class="form-2">
+      <div class="field full"><label>Référence *</label><input id="om-ref" placeholder="CMD-2026-001"></div>
+      <div class="field"><label>Client</label><input id="om-client"></div>
+      <div class="field"><label>Fournisseur</label><input id="om-fourn"></div>
+      <div class="field full"><label>Produit</label><input id="om-produit"></div>
+      <div class="field"><label>Quantité</label><input type="number" id="om-qte" min="1"></div>
+      <div class="field"><label>Valeur (€)</label><input type="number" id="om-valeur" min="0" step="0.01"></div>
+      <div class="field"><label>Incoterm</label><select id="om-incoterm"><option>FOB</option><option>EXW</option><option>CIF</option><option>DDP</option></select></div>
+      <div class="field"><label>Étape</label><select id="om-etape"><option value="0">Confirmation</option><option value="1">Production</option><option value="2">Contrôle qualité</option><option value="3">Transit</option><option value="4">Dédouanement</option><option value="5">Livré</option></select></div>
+      <div class="field"><label>Date commande</label><input type="date" id="om-date"></div>
+      <div class="field"><label>Livraison estimée</label><input type="date" id="om-livraison"></div>
+      <div class="field"><label>N° tracking / BL</label><input id="om-tracking"></div>
+      <div class="field"><label>Alerte</label><select id="om-alerte"><option value="neutre">En attente</option><option value="ok">Dans les délais</option><option value="retard">Retard</option></select></div>
+      <div class="field full"><label>Notes</label><textarea id="om-notes" rows="2"></textarea></div>
+    </div>
+    <div class="modal-actions"><button class="btn" onclick="closeModal('ord')">Annuler</button><button class="btn btn-primary" onclick="saveOrd()">Enregistrer</button></div>
+  </div>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────────────────────
+const SECTORS={electronique:'Électronique',textile:'Textile',metal:'Métal',plastique:'Plastique',luminaire:'Luminaires',mobilier:'Mobilier',ceramique:'Céramique',alimentaire:'Agroalimentaire',autre:'Autre'};
+const STAGES=['Confirmation','Production','Contrôle qualité','Transit','Dédouanement','Livré'];
+const STAGE_COLORS=['#888780','#378ADD','#EF9F27','#c8a96e','#5DCAA5','#639922'];
+
+function load(key,def){try{const v=localStorage.getItem('rec_'+key);return v?JSON.parse(v):def;}catch{return def;}}
+function save(key,val){try{localStorage.setItem('rec_'+key,JSON.stringify(val));}catch{}}
+
+let suppliers=load('suppliers',[]);
+let orders=load('orders',[]);
+let invoices=load('invoices',[]);
+let iLines=[];
+let sNextId=load('sNextId',1);
+let oNextId=load('oNextId',1);
+let iNextId=load('iNextId',1);
+let editSupId=null,editOrdId=null;
+let activeSector='all';
+let currentPage='home';
+
+function persist(){
+  save('suppliers',suppliers);save('orders',orders);save('invoices',invoices);
+  save('sNextId',sNextId);save('oNextId',oNextId);save('iNextId',iNextId);
+  updateBadges();
+}
+
+function fmt(n){return n.toLocaleString('fr-FR',{minimumFractionDigits:2,maximumFractionDigits:2})+'\u00a0€';}
+function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+
+function updateBadges(){
+  document.getElementById('nb-sup').textContent=suppliers.length;
+  const retards=orders.filter(o=>o.alerte==='retard'&&o.etape<5).length;
+  const nbOrd=document.getElementById('nb-ord');
+  nbOrd.textContent=orders.filter(o=>o.etape<5).length;
+  nbOrd.className='nav-badge'+(retards?' red':'');
+  document.getElementById('nb-inv').textContent=invoices.length;
+}
+
+// ── NAV ──────────────────────────────────────────────
+function goTo(page){
+  currentPage=page;
+  document.querySelectorAll('.nav-item').forEach(el=>el.classList.remove('active'));
+  const nav=document.getElementById('nav-'+page);if(nav)nav.classList.add('active');
+  const titles={home:'Tableau de bord',fournisseurs:'Fournisseurs',commandes:'Commandes & logistique',calcul:'Calcul prix de revient',factures:'Factures'};
+  document.getElementById('topbar-title').textContent=titles[page]||page;
+  const acts={
+    fournisseurs:'<button class="btn btn-primary" onclick="openModal(\'sup\')"><i class="ti ti-plus"></i> Nouveau fournisseur</button>',
+    commandes:'<button class="btn btn-primary" onclick="openModal(\'ord\')"><i class="ti ti-plus"></i> Nouvelle commande</button>',
+    factures:'<button class="btn btn-primary" onclick="initNewInvoice()"><i class="ti ti-plus"></i> Nouvelle facture</button>',
+  };
+  document.getElementById('topbar-actions').innerHTML=acts[page]||'';
+  renderPage();
+}
+
+function renderPage(){
+  const c=document.getElementById('content');
+  if(currentPage==='home')renderHome(c);
+  else if(currentPage==='fournisseurs')renderFournisseurs(c);
+  else if(currentPage==='commandes')renderCommandes(c);
+  else if(currentPage==='calcul')renderCalc(c);
+  else if(currentPage==='factures')renderFactures(c);
+}
+
+// ── HOME ─────────────────────────────────────────────
+function renderHome(c){
+  const retards=orders.filter(o=>o.alerte==='retard'&&o.etape<5).length;
+  const qualifies=suppliers.filter(s=>s.statut==='Qualifié').length;
+  const enCours=orders.filter(o=>o.etape<5).length;
+  const valTransit=orders.filter(o=>o.etape<5).reduce((s,o)=>s+(o.valeur||0),0);
+  c.innerHTML=`
+  <div class="stats-grid">
+    <div class="stat-card"><div class="stat-label">Fournisseurs qualifiés</div><div class="stat-val">${qualifies}</div></div>
+    <div class="stat-card"><div class="stat-label">Commandes en cours</div><div class="stat-val">${enCours}</div></div>
+    <div class="stat-card"><div class="stat-label">Retards actifs</div><div class="stat-val" style="color:${retards?'#A32D2D':'inherit'}">${retards}</div></div>
+    <div class="stat-card"><div class="stat-label">Valeur en transit</div><div class="stat-val" style="font-size:18px;">${valTransit.toLocaleString('fr-FR')}\u00a0€</div></div>
+  </div>
+  <div class="home-cards">
+    <div class="hcard" onclick="goTo('fournisseurs')"><div class="hcard-icon"><i class="ti ti-building-factory-2"></i></div><div class="hcard-title">Base fournisseurs</div><div class="hcard-desc">Gérer et qualifier tes fournisseurs Guangdong par secteur produit.</div><div class="hcard-count">${suppliers.length} fournisseur${suppliers.length!==1?'s':''}</div></div>
+    <div class="hcard" onclick="goTo('commandes')"><div class="hcard-icon"><i class="ti ti-truck"></i></div><div class="hcard-title">Suivi commandes</div><div class="hcard-desc">Pipeline logistique de la confirmation à la livraison.</div><div class="hcard-count">${orders.length} commande${orders.length!==1?'s':''}</div></div>
+    <div class="hcard" onclick="goTo('calcul')"><div class="hcard-icon"><i class="ti ti-calculator"></i></div><div class="hcard-title">Prix de revient</div><div class="hcard-desc">FOB → prix de vente avec marge cible et décomposition des coûts.</div><div class="hcard-count">Calcul instantané</div></div>
+    <div class="hcard" onclick="goTo('factures')"><div class="hcard-icon"><i class="ti ti-file-invoice"></i></div><div class="hcard-title">Factures</div><div class="hcard-desc">Créer et suivre les factures R.E.C pour tes clients.</div><div class="hcard-count">${invoices.length} facture${invoices.length!==1?'s':''}</div></div>
+  </div>`;
+}
+
+// ── FOURNISSEURS ──────────────────────────────────────
+function renderFournisseurs(c){
+  const q=(document.getElementById('sup-search')||{}).value||'';
+  const fs=(document.getElementById('sup-filter-statut')||{}).value||'';
+  const ft=(document.getElementById('sup-filter-type')||{}).value||'';
+  const filtered=suppliers.filter(s=>{
+    const txt=(s.nom+s.ville+(s.contact||'')).toLowerCase();
+    return txt.includes(q.toLowerCase())&&(!fs||s.statut===fs)&&(!ft||s.type===ft)&&(activeSector==='all'||s.secteur===activeSector);
+  });
+  const counts={};suppliers.forEach(s=>{counts[s.secteur]=(counts[s.secteur]||0)+1;});
+  const usedSectors=Object.keys(SECTORS).filter(k=>counts[k]);
+  const tabs=['<div class="stab'+(activeSector==='all'?' active':'')+ '" onclick="setSector(\'all\')"><i class="ti ti-layout-grid"></i> Tous <span class="cnt">'+suppliers.length+'</span></div>',
+    ...usedSectors.map(k=>`<div class="stab${activeSector===k?' active':''}" onclick="setSector('${k}')">${SECTORS[k]} <span class="cnt">${counts[k]}</span></div>`)
+  ].join('');
+
+  let tableBody='';
+  if(activeSector==='all'){
+    const bySec={};
+    filtered.forEach(s=>{if(!bySec[s.secteur])bySec[s.secteur]=[];bySec[s.secteur].push(s);});
+    Object.keys(SECTORS).forEach(k=>{
+      if(!bySec[k])return;
+      tableBody+=`<tr><td colspan="7" style="padding:10px 10px 4px;"><div class="sector-group-title"><i class="ti ti-tag" style="color:var(--gold)"></i><span class="sgt-name">${SECTORS[k]}</span><span class="sgt-count">${bySec[k].length} fournisseur${bySec[k].length!==1?'s':''}</span></div></td></tr>`;
+      tableBody+=bySec[k].map(s=>supRow(s)).join('');
+    });
+  } else {
+    tableBody=filtered.map(s=>supRow(s)).join('');
+  }
+  if(!tableBody)tableBody=`<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:2rem;">Aucun fournisseur</td></tr>`;
+
+  c.innerHTML=`
+  <div class="sector-tabs">${tabs}</div>
+  <div class="toolbar">
+    <div class="srch"><i class="ti ti-search"></i><input id="sup-search" placeholder="Rechercher…" value="${q}" oninput="renderPage()"></div>
+    <select class="filt" id="sup-filter-statut" onchange="renderPage()"><option value="">Tous statuts</option><option>Qualifié</option><option>En cours</option><option>Prospect</option><option>Rejeté</option></select>
+    <select class="filt" id="sup-filter-type" onchange="renderPage()"><option value="">Usine / Trader</option><option value="Usine">Usine</option><option value="Trader">Trader</option></select>
+  </div>
+  <div class="table-wrap"><table class="t"><thead><tr><th style="width:22%">Fournisseur</th><th style="width:12%">Ville</th><th style="width:12%">Secteur</th><th style="width:9%">Type</th><th style="width:11%">Statut</th><th style="width:14%">Score qualif.</th><th>Actions</th></tr></thead><tbody>${tableBody}</tbody></table></div>`;
+}
+
+function supRow(s){
+  const sc=s.score>=70?'#639922':s.score>=40?'#BA7517':'#A32D2D';
+  const bc=s.statut==='Qualifié'?'bq':s.statut==='En cours'?'be':s.statut==='Rejeté'?'br':'bp';
+  return `<tr>
+    <td style="font-weight:500;">${s.nom}</td>
+    <td>${s.ville||'—'}</td>
+    <td>${SECTORS[s.secteur]||s.secteur||'—'}</td>
+    <td>${s.type||'—'}</td>
+    <td><span class="badge ${bc}">${s.statut}</span></td>
+    <td><div class="sbar"><div class="sbar-track"><div class="sbar-fill" style="width:${s.score||0}%;background:${sc}"></div></div><span style="font-size:11px;font-weight:500;min-width:26px;color:var(--text2)">${s.score||0}</span></div></td>
+    <td><div class="td-actions"><button class="btn-icon" onclick="openModal('sup',${s.id})" title="Modifier"><i class="ti ti-edit"></i></button><button class="btn-icon" onclick="delSup(${s.id})" title="Supprimer"><i class="ti ti-trash"></i></button></div></td>
+  </tr>`;
+}
+
+function setSector(id){activeSector=id;renderPage();}
+
+function openModal(type,id){
+  editSupId=null;editOrdId=null;
+  if(type==='sup'){
+    editSupId=id||null;
+    const s=id?suppliers.find(s=>s.id===id):null;
+    document.getElementById('sup-modal-title').textContent=s?'Modifier fournisseur':'Nouveau fournisseur';
+    document.getElementById('sm-nom').value=s?.nom||'';
+    document.getElementById('sm-ville').value=s?.ville||'Shenzhen';
+    document.getElementById('sm-secteur').value=s?.secteur||'autre';
+    document.getElementById('sm-type').value=s?.type||'Usine';
+    document.getElementById('sm-statut').value=s?.statut||'Prospect';
+    document.getElementById('sm-contact').value=s?.contact||'';
+    document.getElementById('sm-wechat').value=s?.wechat||'';
+    document.getElementById('sm-moq').value=s?.moq||'';
+    document.getElementById('sm-score').value=s?.score||0;
+    document.getElementById('sm-notes').value=s?.notes||'';
+    document.getElementById('sup-modal-overlay').classList.add('open');
+  } else if(type==='ord'){
+    editOrdId=id||null;
+    const o=id?orders.find(o=>o.id===id):null;
+    document.getElementById('ord-modal-title').textContent=o?'Modifier commande':'Nouvelle commande';
+    document.getElementById('om-ref').value=o?.ref||'CMD-2026-00'+oNextId;
+    document.getElementById('om-client').value=o?.client||'';
+    document.getElementById('om-fourn').value=o?.fourn||'';
+    document.getElementById('om-produit').value=o?.produit||'';
+    document.getElementById('om-qte').value=o?.qte||'';
+    document.getElementById('om-valeur').value=o?.valeur||'';
+    document.getElementById('om-incoterm').value=o?.incoterm||'FOB';
+    document.getElementById('om-etape').value=o?.etape??0;
+    document.getElementById('om-date').value=o?.date||new Date().toISOString().split('T')[0];
+    document.getElementById('om-livraison').value=o?.livraison||'';
+    document.getElementById('om-tracking').value=o?.tracking||'';
+    document.getElementById('om-alerte').value=o?.alerte||'neutre';
+    document.getElementById('om-notes').value=o?.notes||'';
+    document.getElementById('ord-modal-overlay').classList.add('open');
+  }
+}
+
+function closeModal(type){document.getElementById(type+'-modal-overlay').classList.remove('open');}
+
+document.querySelectorAll('.modal-overlay').forEach(el=>{
+  el.addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+});
+
+function saveSup(){
+  const nom=document.getElementById('sm-nom').value.trim();
+  if(!nom)return alert('Le nom est obligatoire.');
+  const data={nom,ville:document.getElementById('sm-ville').value,secteur:document.getElementById('sm-secteur').value,type:document.getElementById('sm-type').value,statut:document.getElementById('sm-statut').value,contact:document.getElementById('sm-contact').value,wechat:document.getElementById('sm-wechat').value,moq:document.getElementById('sm-moq').value,score:parseInt(document.getElementById('sm-score').value)||0,notes:document.getElementById('sm-notes').value};
+  if(editSupId){const i=suppliers.findIndex(s=>s.id===editSupId);if(i>=0)suppliers[i]={...suppliers[i],...data};}
+  else suppliers.push({id:sNextId++,...data});
+  persist();closeModal('sup');renderPage();toast('Fournisseur enregistré');
+}
+
+function delSup(id){if(confirm('Supprimer ce fournisseur ?')){suppliers=suppliers.filter(s=>s.id!==id);persist();renderPage();toast('Supprimé');}}
+
+// ── COMMANDES ─────────────────────────────────────────
+function renderCommandes(c){
+  const byStage=STAGES.map((_,i)=>orders.filter(o=>o.etape===i));
+  const cols=STAGES.map((s,i)=>{
+    const cards=byStage[i];
+    const cardsHtml=cards.length?cards.map(o=>{
+      const ac=o.alerte==='retard'?'br':o.alerte==='ok'?'bq':'bn';
+      const aLabel=o.alerte==='retard'?'Retard':o.alerte==='ok'?'OK':'Attente';
+      return `<div class="pcard" onclick="openModal('ord',${o.id})"><div class="pcard-ref">${o.ref}</div><div class="pcard-cli">${o.client||'—'}</div><div class="pcard-foot"><span style="font-size:10px;color:var(--text3)">${o.livraison?new Date(o.livraison).toLocaleDateString('fr-FR',{day:'2-digit',month:'2-digit'}):''}</span><span class="badge ${ac}" style="font-size:10px;padding:1px 6px;">${aLabel}</span></div></div>`;
+    }).join(''):`<div class="pempty">—</div>`;
+    return `<div class="pcol"><div class="phead s${i}">${s}<br><span class="pcnt">${cards.length}</span></div>${cardsHtml}</div>`;
+  }).join('');
+  const valEnCours=orders.filter(o=>o.etape<5).reduce((s,o)=>s+(o.valeur||0),0);
+  const retards=orders.filter(o=>o.alerte==='retard'&&o.etape<5).length;
+  c.innerHTML=`
+  <div class="stats-grid" style="grid-template-columns:repeat(3,1fr);margin-bottom:1.25rem;">
+    <div class="stat-card"><div class="stat-label">Commandes actives</div><div class="stat-val">${orders.filter(o=>o.etape<5).length}</div></div>
+    <div class="stat-card"><div class="stat-label">Retards</div><div class="stat-val" style="color:${retards?'#A32D2D':'inherit'}">${retards}</div></div>
+    <div class="stat-card"><div class="stat-label">Valeur en transit</div><div class="stat-val" style="font-size:18px;">${valEnCours.toLocaleString('fr-FR')}\u00a0€</div></div>
+  </div>
+  <div class="pipeline">${cols}</div>`;
+}
+
+function saveOrd(){
+  const ref=document.getElementById('om-ref').value.trim();
+  if(!ref)return alert('Référence obligatoire.');
+  const data={ref,client:document.getElementById('om-client').value,fourn:document.getElementById('om-fourn').value,produit:document.getElementById('om-produit').value,qte:parseInt(document.getElementById('om-qte').value)||0,valeur:parseFloat(document.getElementById('om-valeur').value)||0,incoterm:document.getElementById('om-incoterm').value,etape:parseInt(document.getElementById('om-etape').value),date:document.getElementById('om-date').value,livraison:document.getElementById('om-livraison').value,tracking:document.getElementById('om-tracking').value,alerte:document.getElementById('om-alerte').value,notes:document.getElementById('om-notes').value};
+  if(editOrdId){const i=orders.findIndex(o=>o.id===editOrdId);if(i>=0)orders[i]={...orders[i],...data};}
+  else orders.push({id:oNextId++,...data});
+  persist();closeModal('ord');renderPage();toast('Commande enregistrée');
+}
+
+// ── CALCUL ────────────────────────────────────────────
+function renderCalc(c){
+  c.innerHTML=`
+  <div class="calc-layout">
+    <div>
+      <div class="slabel" style="margin-bottom:12px;">Produit & commande</div>
+      <div class="field"><label>Nom du produit</label><input type="text" id="c-nom" placeholder="Ex: Packaging plastique"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field"><label>Quantité (pcs)</label><input type="number" id="c-qte" value="500" min="1" oninput="calcPrix()"></div>
+        <div class="field"><label>Prix FOB unitaire (€)</label><input type="number" id="c-fob" value="8.00" step="0.01" min="0" oninput="calcPrix()"></div>
+      </div>
+      <div class="field"><label>Incoterm</label><select id="c-incoterm" onchange="calcPrix()"><option value="FOB">FOB — Free On Board</option><option value="EXW">EXW — Ex Works</option><option value="CIF">CIF — Cost Insurance Freight</option><option value="DDP">DDP — Delivered Duty Paid</option></select></div>
+      <div class="slabel" style="margin:14px 0 12px;">Logistique & taxes</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field"><label>Fret maritime (€)</label><input type="number" id="c-fret" value="450" min="0" oninput="calcPrix()"></div>
+        <div class="field"><label>Assurance (€)</label><input type="number" id="c-assur" value="80" min="0" oninput="calcPrix()"></div>
+        <div class="field"><label>Droits de douane (%)</label><input type="number" id="c-douane" value="3.5" step="0.1" min="0" oninput="calcPrix()"></div>
+        <div class="field"><label>TVA import (%)</label><input type="number" id="c-tva" value="20" min="0" oninput="calcPrix()"></div>
+        <div class="field"><label>Frais divers (€)</label><input type="number" id="c-divers" value="150" min="0" oninput="calcPrix()"></div>
+        <div class="field"><label>Honoraires R.E.C (€)</label><input type="number" id="c-honor" value="0" min="0" oninput="calcPrix()"></div>
+      </div>
+      <div class="slabel" style="margin:14px 0 10px;">Marge cible</div>
+      <div class="marge-row">
+        <input type="range" id="c-marge-slider" min="5" max="80" value="30" step="1" oninput="document.getElementById('c-marge-in').value=this.value;calcPrix()">
+        <input type="number" id="c-marge-in" value="30" min="5" max="80" oninput="document.getElementById('c-marge-slider').value=this.value;calcPrix()">
+        <span style="font-size:13px;color:var(--text2);">%</span>
+      </div>
+      <div class="alert-box alert-warn" id="c-alert-warn"><i class="ti ti-alert-triangle"></i> Marge faible — en dessous de 20%, la commande est risquée.</div>
+      <div class="alert-box alert-danger" id="c-alert-danger"><i class="ti ti-alert-triangle"></i> Marge insuffisante — ne couvre pas les frais fixes.</div>
+    </div>
+    <div>
+      <div class="slabel" style="margin-bottom:12px;">Résultats</div>
+      <div class="res-cards">
+        <div class="res-card"><div class="res-label">Prix de revient unitaire</div><div class="res-val" id="c-revient">—</div></div>
+        <div class="res-card"><div class="res-label">Prix de vente conseillé</div><div class="res-val" id="c-vente" style="color:#185FA5;">—</div></div>
+        <div class="res-card"><div class="res-label">Marge brute / commande</div><div class="res-val" id="c-gain">—</div></div>
+      </div>
+      <div class="slabel" style="margin-bottom:10px;">Décomposition des coûts</div>
+      <div class="bdown-row"><span>Marchandise FOB total</span><span id="cb-fob">—</span></div>
+      <div class="bdown-row"><span>Fret + assurance</span><span id="cb-fret">—</span></div>
+      <div class="bdown-row"><span>Droits de douane</span><span id="cb-douane">—</span></div>
+      <div class="bdown-row"><span>TVA à l'import</span><span id="cb-tva">—</span></div>
+      <div class="bdown-row"><span>Frais divers + honoraires</span><span id="cb-div">—</span></div>
+      <div class="bdown-total"><span>Coût total commande</span><span id="cb-total">—</span></div>
+    </div>
+  </div>`;
+  calcPrix();
+}
+
+function calcPrix(){
+  const qte=parseFloat(document.getElementById('c-qte')?.value)||1;
+  const fob=parseFloat(document.getElementById('c-fob')?.value)||0;
+  const fret=parseFloat(document.getElementById('c-fret')?.value)||0;
+  const assur=parseFloat(document.getElementById('c-assur')?.value)||0;
+  const douanePct=(parseFloat(document.getElementById('c-douane')?.value)||0)/100;
+  const tvaPct=(parseFloat(document.getElementById('c-tva')?.value)||0)/100;
+  const divers=(parseFloat(document.getElementById('c-divers')?.value)||0)+(parseFloat(document.getElementById('c-honor')?.value)||0);
+  const marge=(parseFloat(document.getElementById('c-marge-in')?.value)||30)/100;
+  const fobTotal=fob*qte;
+  const base=fobTotal+fret+assur;
+  const douane=base*douanePct;
+  const tva=(base+douane)*tvaPct;
+  const total=fobTotal+fret+assur+douane+tva+divers;
+  const unit=total/qte;
+  const vente=marge>=1?unit*10:unit/(1-marge);
+  const gain=(vente-unit)*qte;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('c-revient',fmt(unit));set('c-vente',fmt(vente));set('c-gain',fmt(gain));
+  set('cb-fob',fmt(fobTotal));set('cb-fret',fmt(fret+assur));set('cb-douane',fmt(douane));set('cb-tva',fmt(tva));set('cb-div',fmt(divers));set('cb-total',fmt(total));
+  const margePct=marge*100;
+  const aw=document.getElementById('c-alert-warn');const ad=document.getElementById('c-alert-danger');
+  if(aw)aw.style.display=margePct<20&&margePct>=10?'block':'none';
+  if(ad)ad.style.display=margePct<10?'block':'none';
+}
+
+// ── FACTURES ──────────────────────────────────────────
+function renderFactures(c){
+  const rows=invoices.map(inv=>{
+    const ht=inv.lines?inv.lines.reduce((s,l)=>s+l.qte*l.pu,0):inv.ht||0;
+    const ttc=ht*(1+(inv.tva||20)/100);
+    const bc=inv.statut==='payee'?'bq':inv.statut==='envoyee'?'bp':'bn';
+    const sl=inv.statut==='payee'?'Payée':inv.statut==='envoyee'?'Envoyée':'Brouillon';
+    return `<tr>
+      <td style="font-weight:500">${inv.num}</td>
+      <td>${inv.client}</td>
+      <td>${inv.date?new Date(inv.date).toLocaleDateString('fr-FR'):''}</td>
+      <td>${inv.echeance?new Date(inv.echeance).toLocaleDateString('fr-FR'):''}</td>
+      <td><span class="badge ${bc}">${sl}</span></td>
+      <td style="font-weight:500">${fmt(ttc)}</td>
+      <td><div class="td-actions">
+        <button class="btn btn-sm" onclick="deleteInvoice(${inv.id})"><i class="ti ti-trash"></i></button>
+      </div></td>
+    </tr>`;
+  }).join('');
+
+  const today=new Date().toISOString().split('T')[0];
+  const due=new Date();due.setDate(due.getDate()+30);
+
+  c.innerHTML=`
+  <div class="table-wrap" style="margin-bottom:1.5rem;">
+    <table class="t"><thead><tr>
+      <th style="width:16%">N° facture</th><th style="width:20%">Client</th><th style="width:13%">Date</th><th style="width:13%">Échéance</th><th style="width:11%">Statut</th><th style="width:14%">Total TTC</th><th>Actions</th>
+    </tr></thead><tbody>${rows||'<tr><td colspan="7" style="text-align:center;color:var(--text3);padding:2rem;">Aucune facture enregistrée</td></tr>'}</tbody></table>
+  </div>
+  <div class="slabel" style="margin-bottom:1rem;">Créer une facture</div>
+  <div class="inv-layout">
+    <div>
+      <div class="field"><label>Client *</label><input id="i-client" placeholder="Nom / société"></div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+        <div class="field"><label>N° facture</label><input id="i-num" value="REC-${new Date().getFullYear()}-${String(iNextId).padStart(3,'0')}"></div>
+        <div class="field"><label>Statut</label><select id="i-statut"><option value="brouillon">Brouillon</option><option value="envoyee">Envoyée</option><option value="payee">Payée</option></select></div>
+        <div class="field"><label>Date</label><input type="date" id="i-date" value="${today}"></div>
+        <div class="field"><label>Échéance</label><input type="date" id="i-ech" value="${due.toISOString().split('T')[0]}"></div>
+        <div class="field"><label>TVA (%)</label><input type="number" id="i-tva" value="20" min="0" max="100" oninput="updateInvTotals()"></div>
+      </div>
+      <div class="field"><label>Notes / conditions</label><textarea id="i-notes" rows="2" placeholder="Paiement sous 30 jours. Virement bancaire."></textarea></div>
+    </div>
+    <div>
+      <div class="lines-hd"><span>Description</span><span>Qté</span><span>Prix unit.</span><span style="text-align:right">Total HT</span><span></span></div>
+      <div id="i-lines-container"></div>
+      <button class="add-line" onclick="addInvLine()"><i class="ti ti-plus"></i> Ajouter une ligne</button>
+      <div style="margin-top:12px;border-top:0.5px solid var(--border);padding-top:10px;">
+        <div class="inv-tot-row"><span>Sous-total HT</span><span id="i-ht">0,00 €</span></div>
+        <div class="inv-tot-row"><span>TVA (<span id="i-tva-pct">20</span>%)</span><span id="i-tva-amt">0,00 €</span></div>
+        <div class="inv-grand"><span>Total TTC</span><span id="i-ttc">0,00 €</span></div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="saveInvoice()"><i class="ti ti-check"></i> Enregistrer</button>
+        <button class="btn btn-gold" onclick="printInvoice()"><i class="ti ti-printer"></i> Imprimer / PDF</button>
+      </div>
+    </div>
+  </div>`;
+  renderInvLines();
+}
+
+function initNewInvoice(){iLines=[{desc:'',qte:1,pu:0}];goTo('factures');}
+
+function renderInvLines(){
+  const c=document.getElementById('i-lines-container');
+  if(!c)return;
+  c.innerHTML=iLines.map((l,i)=>`<div class="line-row">
+    <input type="text" value="${l.desc}" placeholder="Service ou prestation…" oninput="iLines[${i}].desc=this.value">
+    <input type="number" value="${l.qte}" min="1" style="text-align:right;" oninput="iLines[${i}].qte=parseFloat(this.value)||0;updateInvTotals()">
+    <input type="number" value="${l.pu}" min="0" step="0.01" style="text-align:right;" oninput="iLines[${i}].pu=parseFloat(this.value)||0;updateInvTotals()">
+    <div class="line-tot">${fmt(l.qte*l.pu)}</div>
+    <button class="bdel" onclick="iLines.splice(${i},1);renderInvLines()"><i class="ti ti-x"></i></button>
+  </div>`).join('');
+  updateInvTotals();
+}
+
+function addInvLine(){iLines.push({desc:'',qte:1,pu:0});renderInvLines();}
+
+function updateInvTotals(){
+  const tvaPct=(parseFloat(document.getElementById('i-tva')?.value)||20);
+  const ht=iLines.reduce((s,l)=>s+(l.qte||0)*(l.pu||0),0);
+  const tva=ht*tvaPct/100;
+  const set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v;};
+  set('i-ht',fmt(ht));set('i-tva-amt',fmt(tva));set('i-ttc',fmt(ht+tva));set('i-tva-pct',tvaPct);
+  renderInvLines();
+}
+
+function saveInvoice(){
+  const cli=document.getElementById('i-client')?.value.trim();
+  if(!cli)return alert('Le nom du client est obligatoire.');
+  const tvaPct=parseFloat(document.getElementById('i-tva').value)||20;
+  invoices.push({id:iNextId++,num:document.getElementById('i-num').value||'REC-?',client:cli,date:document.getElementById('i-date').value,echeance:document.getElementById('i-ech').value,statut:document.getElementById('i-statut').value,tva:tvaPct,notes:document.getElementById('i-notes').value,lines:JSON.parse(JSON.stringify(iLines))});
+  iLines=[{desc:'',qte:1,pu:0}];
+  persist();renderPage();toast('Facture enregistrée');
+}
+
+function deleteInvoice(id){if(confirm('Supprimer cette facture ?')){invoices=invoices.filter(i=>i.id!==id);persist();renderPage();toast('Facture supprimée');}}
+
+function printInvoice(){
+  const cli=document.getElementById('i-client')?.value||'';
+  const num=document.getElementById('i-num')?.value||'';
+  const tvaPct=parseFloat(document.getElementById('i-tva')?.value)||20;
+  const ht=iLines.reduce((s,l)=>s+l.qte*l.pu,0);
+  const ttc=ht*(1+tvaPct/100);
+  const linesHtml=iLines.map(l=>`<tr><td>${l.desc}</td><td style="text-align:right">${l.qte}</td><td style="text-align:right">${l.pu.toFixed(2)} €</td><td style="text-align:right">${(l.qte*l.pu).toFixed(2)} €</td></tr>`).join('');
+  const win=window.open('','_blank');
+  win.document.write(`<!DOCTYPE html><html><head><meta charset="UTF-8"><title>Facture ${num}</title><style>body{font-family:Arial,sans-serif;max-width:700px;margin:40px auto;color:#0e0e0e;}h1{font-size:28px;color:#c8a96e;letter-spacing:.1em;}table{width:100%;border-collapse:collapse;margin:20px 0;}th{background:#f0f0ec;padding:8px;text-align:left;font-size:12px;}td{padding:8px;border-bottom:1px solid #eee;font-size:13px;}.total{font-size:16px;font-weight:bold;text-align:right;margin-top:10px;}@media print{body{margin:20px;}}</style></head><body>
+  <h1>R.E.C</h1><p style="color:#888">Réussir en Chine — Eric Ibrahim<br>Guangdong, Chine</p>
+  <hr style="border:1px solid #c8a96e;margin:20px 0">
+  <div style="display:flex;justify-content:space-between"><div><strong>Facturé à :</strong><br>${cli}</div><div style="text-align:right"><strong style="color:#c8a96e;font-size:18px;">${num}</strong><br>${new Date(document.getElementById('i-date')?.value||Date.now()).toLocaleDateString('fr-FR')}</div></div>
+  <table><thead><tr><th>Description</th><th style="text-align:right">Qté</th><th style="text-align:right">Prix unit.</th><th style="text-align:right">Total HT</th></tr></thead><tbody>${linesHtml}</tbody></table>
+  <div style="text-align:right"><p>Sous-total HT : ${ht.toFixed(2)} €</p><p>TVA ${tvaPct}% : ${(ht*tvaPct/100).toFixed(2)} €</p><p class="total">Total TTC : ${ttc.toFixed(2)} €</p></div>
+  <hr style="margin-top:40px"><p style="font-size:11px;color:#888">${document.getElementById('i-notes')?.value||''}<br>Réussir en Chine, ça se prépare.</p>
+  <script>window.print();<\/script></body></html>`);
+  win.document.close();
+}
+
+// ── INIT ─────────────────────────────────────────────
+updateBadges();
+goTo('home');
+</script>
+</body>
+</html>
